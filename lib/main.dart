@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '/src/data/app_database.dart';
 import 'create_project_screen.dart';
+import 'project_list_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Agrisix App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -48,7 +49,13 @@ class MyHomePage extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Navigate to My Projects screen (to be implemented)
+                // Navigate to Project List screen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProjectListScreen(database: database),
+                  ),
+                );
               },
               child: const Text('My Projects'),
             ),
