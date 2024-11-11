@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '/src/data/app_database.dart';
+import 'create_project_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,6 +29,8 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final database = AppDatabase();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -36,24 +40,27 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // Display an image
             Image.asset(
               'assets/agrisix_logo.png',
-              width: 150, // Adjust width as needed
-              height: 150, // Adjust height as needed
+              width: 150,
+              height: 150,
             ),
-            const SizedBox(height: 20), // Add spacing below the image
-            // Add buttons for My Projects and Add New Project
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Add functionality for My Projects
+                // Navigate to My Projects screen (to be implemented)
               },
               child: const Text('My Projects'),
             ),
-            const SizedBox(height: 10), // Space between buttons
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                // Add functionality for Add New Project
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CreateProjectScreen(database: database),
+                  ),
+                );
               },
               child: const Text('Add New Project'),
             ),
