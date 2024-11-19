@@ -4,5 +4,15 @@
   "homeTitle": "Agrisix Kezdőlap",
   "myProjects": "Projektjeim",
   "addNewProject": "Új Projekt Hozzáadása",
-  "changeLanguage": "Nyelv Módosítása"
+  "changeLanguage": "Nyelv Módosítása",
+  "createProjectTitle": "Új projekt létrehozása",
+  "projectNameLabel": "Projekt neve",
+  "projectNameValidation": "Kérjük, adja meg a projekt nevét",
+  "createProjectButton": "Projekt létrehozása",
+  "projectCreatedSuccess": "Projekt sikeresen létrehozva!",
+  "errorLoadingProjects": "Hiba a projektek betöltésekor.",
+  "noProjectsFound": "Nem találhatók projektek.",
+  "createCropType": "Növény típus létrehozása",
+  "createActivityType": "Tevékenység típus létrehozása",
+  "listMyFields": "Mezőim listázása"
 }

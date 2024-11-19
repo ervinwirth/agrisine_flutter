@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import '/src/data/app_database.dart';
 import 'package:drift/drift.dart' as drift; // Alias for drift
+import 'l10n/generated/l10n.dart'; // Import the localization class
 
 class CreateProjectScreen extends StatefulWidget {
   final AppDatabase database;
@@ -41,7 +42,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
 
       // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Project created successfully!')),
+        SnackBar(content: Text(S.of(context).projectCreatedSuccess)), // Use translation
       );
 
       // Close the current screen
@@ -53,32 +54,30 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create New Project'),
+        title: Text(S.of(context).createProjectTitle), // Use translation
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
-          child: Column( // Use Column from Flutter
+          child: Column(
             children: [
-              // Text input for the project name
               TextFormField(
                 controller: _nameController,
-                decoration: const InputDecoration(
-                  labelText: 'Project Name',
+                decoration: InputDecoration(
+                  labelText: S.of(context).projectNameLabel, // Use translation
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a project name';
+                    return S.of(context).projectNameValidation; // Use translation
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 20),
-              // Button to create the project
               ElevatedButton(
                 onPressed: _createProject,
-                child: const Text('Create Project'),
+                child: Text(S.of(context).createProjectButton), // Use translation
               ),
             ],
           ),

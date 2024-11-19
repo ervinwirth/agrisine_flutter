@@ -1,8 +1,18 @@
 {
-  "@@locale": "en",
-  "appTitle": "Agrisix App",
-  "homeTitle": "Agrisix Home",
-  "myProjects": "My Projects",
-  "addNewProject": "Add New Project",
-  "changeLanguage": "Change Language"
+    "@@locale": "en",
+    "appTitle": "Agrisix App",
+    "homeTitle": "Agrisix Home",
+    "myProjects": "My Projects",
+    "addNewProject": "Add New Project",
+    "changeLanguage": "Change Language",
+    "createProjectTitle": "Create New Project",
+    "projectNameLabel": "Project Name",
+    "projectNameValidation": "Please enter a project name",
+    "createProjectButton": "Create Project",
+    "projectCreatedSuccess": "Project created successfully!",
+    "errorLoadingProjects": "Error loading projects.",
+    "noProjectsFound": "No projects found.",
+    "createCropType": "Create Crop Type",
+    "createActivityType": "Create Activity Type",
+    "listMyFields": "List My Fields"
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '/src/data/app_database.dart';
 import 'project_detail_screen.dart';
+import 'l10n/generated/l10n.dart'; // Import localization class
 
 class ProjectListScreen extends StatelessWidget {
   final AppDatabase database;
@@ -11,7 +12,7 @@ class ProjectListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Projects'),
+        title: Text(S.of(context).myProjects), // Use translation
       ),
       body: FutureBuilder(
         future: database.getAllProjects(),
@@ -19,9 +20,13 @@ class ProjectListScreen extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return const Center(child: Text('Error loading projects.'));
+            return Center(
+              child: Text(S.of(context).errorLoadingProjects), // Use translation
+            );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No projects found.'));
+            return Center(
+              child: Text(S.of(context).noProjectsFound), // Use translation
+            );
           }
 
           final projects = snapshot.data!;

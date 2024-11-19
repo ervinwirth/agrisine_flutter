@@ -1,7 +1,6 @@
-// project_detail_screen.dart
 import 'package:flutter/material.dart';
 import 'package:agrisix_flutter/src/data/app_database.dart';
-
+import 'l10n/generated/l10n.dart'; // Import localization
 
 class ProjectDetailScreen extends StatelessWidget {
   final AppDatabase database;
@@ -19,40 +18,34 @@ class ProjectDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('$projectName Fields'),
+        title: Text(projectName), // Display only the project name
       ),
-      body: FutureBuilder<List<Field>>(
-        future: database.getFieldsByProjectId(projectId),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return const Center(child: Text('Error loading fields.'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No fields found.'));
-          }
-
-          final fields = snapshot.data!;
-          return ListView.builder(
-            itemCount: fields.length,
-            itemBuilder: (context, index) {
-              final field = fields[index];
-              return ListTile(
-                title: Text(field.name),
-                subtitle: Text('Created on: ${field.createdAt}'),
-                onTap: () {
-                  // You can extend this later to show more details for each field
-                },
-              );
-            },
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Placeholder for functionality to add new field or later implement a map view.
-        },
-        child: const Icon(Icons.add),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                // Navigate to the Create Crop Type screen
+              },
+              child: Text(S.of(context).createCropType), // Use translation
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                // Navigate to the Create Activity Type screen
+              },
+              child: Text(S.of(context).createActivityType), // Use translation
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                // Navigate to the List My Fields screen
+              },
+              child: Text(S.of(context).listMyFields), // Use translation
+            ),
+          ],
+        ),
       ),
     );
   }
