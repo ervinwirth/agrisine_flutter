@@ -1,16 +1,21 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as p;
 import '/src/data/app_database.dart';
 import 'create_project_screen.dart';
 import 'project_list_screen.dart';
 import 'l10n/generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -53,8 +58,7 @@ class _MyAppState extends State<MyApp> {
 class MyHomePage extends StatelessWidget {
   final Function(Locale) onLanguageChanged;
 
-  const MyHomePage({Key? key, required this.onLanguageChanged})
-      : super(key: key);
+  const MyHomePage({super.key, required this.onLanguageChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +108,17 @@ class MyHomePage extends StatelessWidget {
               onPressed: () => _showLanguagePicker(context),
               child: Text(S.of(context).changeLanguage),
             ),
+            const SizedBox(height: 20), // Add some space before the new button
+            ElevatedButton(
+              onPressed: () async {
+                await deleteDatabaseFile();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+              ),
+              child: const Text('Clear Database'),
+            ),
           ],
         ),
       ),
@@ -138,5 +153,14 @@ class MyHomePage extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+Future<void> deleteDatabaseFile() async {
+  final dbFolder = await getApplicationDocumentsDirectory();
+  final file = File(p.join(dbFolder.path, 'app.db'));
+  if (await file.exists()) {
+    await file.delete();
+    print('Database file deleted');
   }
 }

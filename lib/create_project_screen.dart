@@ -36,7 +36,7 @@ class _CreateProjectScreenState extends State<CreateProjectScreen> {
           name: name, // No need for Value() here
           createdAt: drift.Value(DateTime.now()), // Use drift.Value() for DateTime
           updatedAt: drift.Value(DateTime.now()), // Use drift.Value() for DateTime
-          isDeleted: drift.Value(false), // Use drift.Value() for booleans
+          isDeleted: const drift.Value(false), // Use drift.Value() for booleans
         ),
       );
 

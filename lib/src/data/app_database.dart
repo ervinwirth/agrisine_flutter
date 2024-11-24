@@ -7,13 +7,24 @@ import 'package:path/path.dart' as p;
 
 part 'app_database.g.dart';
 
+@DataClassName('CropType')
+class CropTypes extends Table {
+  TextColumn get id => text()(); // UUID
+  TextColumn get name => text().unique()(); // Crop name must be unique
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
 @DataClassName('Project')
 class Projects extends Table {
   TextColumn get id => text()(); // UUID
   TextColumn get name => text()();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
-  BoolColumn get isDeleted => boolean().withDefault(Constant(false))();
+  BoolColumn get isDeleted => boolean().withDefault(const Constant(false))();
 
   @override
   Set<Column> get primaryKey => {id};
@@ -24,21 +35,27 @@ class Fields extends Table {
   TextColumn get id => text()(); // UUID
   TextColumn get projectId => text().nullable().customConstraint('REFERENCES projects(id)')();
   TextColumn get name => text()();
-  RealColumn get area => real().withDefault(Constant(0.0))(); // Area in hectares
+  TextColumn get geometry => text().nullable()(); // Store GeoJSON or serialized data
+  RealColumn get area => real().withDefault(const Constant(0.0))(); // Area in hectares
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
-  BoolColumn get isDeleted => boolean().withDefault(Constant(false))();
+  BoolColumn get isDeleted => boolean().withDefault(const Constant(false))();
 
   @override
   Set<Column> get primaryKey => {id};
 }
 
-@DriftDatabase(tables: [Projects, Fields])
+@DriftDatabase(tables: [Projects, Fields, CropTypes])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
   @override
   int get schemaVersion => 1;
+
+  // CropType methods
+  Future<List<CropType>> getAllCropTypes() => select(cropTypes).get();
+  Future<void> insertCropType(CropTypesCompanion entry) => into(cropTypes).insert(entry);
+  Future<void> deleteCropType(CropType cropType) => delete(cropTypes).delete(cropType);
 
   // Project methods
   Future<List<Project>> getAllProjects() => select(projects).get();
@@ -52,6 +69,8 @@ class AppDatabase extends _$AppDatabase {
 
   Future<void> insertField(FieldsCompanion entry) => into(fields).insert(entry);
   Future<void> updateField(Field field) => update(fields).replace(field);
+
+  Future<void> deleteField(Field field) => delete(fields).delete(field);
 }
 
 LazyDatabase _openConnection() {
