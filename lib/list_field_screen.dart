@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:agrisix_flutter/src/data/app_database.dart';
+import 'package:agrisine_flutter/src/data/app_database.dart';
 import 'l10n/generated/l10n.dart';
 
 class FieldListScreen extends StatefulWidget {

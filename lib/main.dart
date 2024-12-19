@@ -65,18 +65,20 @@ class MyHomePage extends StatelessWidget {
     final database = AppDatabase();
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(S.of(context).homeTitle),
-      ),
+      backgroundColor: Colors.green[900],
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset(
-              'assets/agrisix_logo.png',
-              width: 150,
-              height: 150,
+            // Replace the logo with styled text
+            Text(
+              'Agrisine',
+              style: const TextStyle(
+                color: Colors.white, // White color
+                fontSize: 32, // Adjust font size as needed
+                fontStyle: FontStyle.italic, // Italic style
+                fontWeight: FontWeight.bold, // Optional: Bold for emphasis
+              ),
             ),
             const SizedBox(height: 20),
             ElevatedButton(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:agrisix_flutter/src/data/app_database.dart';
+import 'package:agrisine_flutter/src/data/app_database.dart';
 import 'package:uuid/uuid.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:latlong2/latlong.dart';
